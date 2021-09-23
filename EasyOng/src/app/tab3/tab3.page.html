@@ -1,17 +1,29 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Tab 3
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="container">
+    <div class="nao-logado">
+
+      <div class="signup">
+        <ion-label>Aumente a visibilidade da sua ONG</ion-label>
+        <ion-button shape="round" expand="full">cadastre-se</ion-button>
+        <ion-label>E se junte a outras ONGS nessa jornada</ion-label>
+      </div>
+
+      <ion-label>ou</ion-label>
+
+      <div class="signin">
+        <ion-label>Para alterar os dados da sua ONG</ion-label>
+        <ion-button shape="round" expand="full" fill="outline">entre</ion-button>
+      </div>
+      
+    </div>   
+  </div>
 </ion-content>

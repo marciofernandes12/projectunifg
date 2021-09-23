@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    padding: 20px;
+}
+
+.nao-logado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 50%;
+    width: 100%;
+    // background-color: cadetblue;
+}
+.signup {
+    margin: 24px 0;
+    text-align: center;
+    width: 100%;
+    // background-color: chocolate;
+}
+
+.signin {
+    margin: 24px 0;
+    text-align: center;
+    width: 100%;
+    // background-color: cornflowerblue;
+}
+
+ion-button {
+    width: 100%;
+}
