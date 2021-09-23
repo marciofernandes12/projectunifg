@@ -1,7 +1,0 @@
-{
-  "name": "cispo",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
