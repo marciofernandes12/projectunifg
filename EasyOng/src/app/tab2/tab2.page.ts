@@ -7,6 +7,63 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
+  public dados = [
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+    {
+      name: 'AACD',
+      img: '../../assets/musician-5960112_1280.jpg',
+      type: 'ONG',
+      creation: '1969'
+    },
+  ];
+
   constructor() {}
 
 }
