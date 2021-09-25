@@ -8,10 +8,9 @@ declare let L: any;
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-
   map: Map;
   popup: Popup;
   newMarker: any;
@@ -33,23 +32,21 @@ export class Tab1Page {
     private geoLocation: Geolocation,
     // private ipeteservices: IpetService,
     private toastCtrl: ToastController
-  ) { }
+  ) {}
 
-
-
-  ionViewWillEnter() {
-
-    this.geoLocation.getCurrentPosition().then((resp) => {
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      this.loadMap(this.latitude, this.longitude);
-      // this.map.on('dblclick', (e) => { this.onMapClick(e); });
-    }).catch((error) => {
-      console.log('Error ao buscar localização', error);
-    });
+  public ionViewWillEnter(): void {
+    this.geoLocation
+      .getCurrentPosition()
+      .then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+        this.loadMap(this.latitude, this.longitude);
+        // this.map.on('dblclick', (e) => { this.onMapClick(e); });
+      })
+      .catch((error) => {
+        console.log('Error ao buscar localização', error);
+      });
   }
-
-
 
   // onMapClick(e) {
 
@@ -69,32 +66,39 @@ export class Tab1Page {
   //     this.longitude = e.latlng.lng;
   //   }
 
-
   // }
 
+  public loadMap(lat, long): void {
+    if (!this.map) {
+      this.map = new Map('mapId2').setView([lat, long], 15);
 
-  public loadMap(lat, long): void  {
-    const leafIcon = L.Icon.extend({
-      options: {
-        iconSize: [60, 95],
-        iconAnchor: [22, 94],
-        popupAnchor: [7, -76]
-      }
-    });
+      const leafIcon = L.Icon.extend({
+        options: {
+          iconSize: [60, 95],
+          iconAnchor: [22, 94],
+          popupAnchor: [7, -76],
+        },
+      });
 
-    const greenIcon = new leafIcon({ iconUrl: '../../assets/icon/heart.png' });
-    this.map = new Map('mapId2').setView([lat, long], 15);
-    this.newMarker = L.marker([lat, long], {
-      draggable: false,
-      icon: greenIcon
-    }).addTo(this.map).bindPopup('Você').openPopup();
-    this.latitude = lat;
-    this.longitude = long;
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
-    Map.on('locationfound', this.loadMap);
-
+      const greenIcon = new leafIcon({
+        iconUrl: '../../assets/icon/heart.png',
+      });
+      this.newMarker = L.marker([lat, long], {
+        draggable: false,
+        icon: greenIcon,
+      })
+        .addTo(this.map)
+        .bindPopup('Você')
+        .openPopup();
+      this.latitude = lat;
+      this.longitude = long;
+      L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {}
+      ).addTo(this.map);
+      Map.on('locationfound', this.loadMap);
+    }
   }
-
 
   // async locatePosition() {
 
@@ -121,8 +125,6 @@ export class Tab1Page {
   //     }
   //   });
   // }
-
-
 
   async buscarPorTipos(tipo) {
     // const loading = await this.loadingController.create({
@@ -155,7 +157,6 @@ export class Tab1Page {
     //         }
     //       });
     //       const greenIcon = new leafIcon({ iconUrl: '../../assets/img/'+tipo.detail.value+'.png' });
-
     //       this.dados = response;
     //       this.dados.forEach(element => {
     //         console.log(element);
@@ -182,7 +183,6 @@ export class Tab1Page {
     //         draggable: false,
     //         icon: greenIcon
     //       }).addTo(this.map).bindPopup('Você').openPopup();
-
     //       const mensagem = 'Nenhum '+ tipo.detail.value+ ' encontrado!';
     //       this.alertaDados(mensagem);
     //     }
@@ -190,7 +190,6 @@ export class Tab1Page {
     //   .catch((erro) => {
     //     console.error(erro);
     //   });
-
   }
 
   // async alertaDados(mensagem: string) {
@@ -202,5 +201,4 @@ export class Tab1Page {
 
   //   toast.present();
   // }
-
 }
