@@ -17,6 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->post('/login', 'OngController@login');
+$router->post('/cadastro', 'OngController@store');
+
+
+
 $router->group(['prefix' => 'ongs'], function () use ($router) {
     $router->post('/login', 'OngController@login');
     $router->post('/cadastro', 'OngController@store');
