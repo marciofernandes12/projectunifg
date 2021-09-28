@@ -12,4 +12,5 @@ class Ong extends Model
     use HasFactory;
 
     protected $table = 'ongs';
+    protected $primaryKey = 'ong_id';
 }
