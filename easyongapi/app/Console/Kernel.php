@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
         //
     ];
 
+    protected $middleware = [
+        \Fruitcake\Cors\HandleCors::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *

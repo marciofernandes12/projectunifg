@@ -12,6 +12,8 @@ export class OngRepository {
 
     public baseUrl = 'http://localhost:8000';
     public ong = '/ongs';
+    public cadastro = '/cadastro';
+    public login = '/login';
 
     constructor(
       private http: HttpClient,
@@ -27,11 +29,11 @@ export class OngRepository {
     // }
 
     public create(ong: Ong): Observable<Ong> {
-        return this.http.post<Ong>(this.baseUrl, ong);
+        return this.http.post<Ong>(`${this.baseUrl}${this.cadastro}`, ong);
     }
 
     public read(): Observable<Ong[]> {
-        return this.http.get<Ong[]>(this.baseUrl);
+        return this.http.get<Ong[]>(`${this.baseUrl}${this.ong}`);
     }
 
     public readById(id: string): Observable<Ong> {
@@ -40,7 +42,7 @@ export class OngRepository {
     }
 
     public update(ong: Ong): Observable<UpdateResponse> {
-        const url = `${this.baseUrl}/${ong}/${ong.ong_id}`;
+        const url = `${this.baseUrl}/${this.ong}/${ong.ong_id}`;
         return this.http.put<UpdateResponse>(url, ong);
     }
 

@@ -10,6 +10,7 @@ class OngController extends Controller
 {
     public function index()
     {
+        print(response()->json(Ong::all()));
         return response()->json(Ong::all());
     }
 
@@ -50,6 +51,7 @@ class OngController extends Controller
         $ong = Ong::find($id);
         $response['response'] = $ong->delete();
 
+        print($response);
         if(!$response){
             return response()->json($response, 400);
         }
