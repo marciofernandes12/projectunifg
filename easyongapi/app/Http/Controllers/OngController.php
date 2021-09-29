@@ -44,4 +44,16 @@ class OngController extends Controller
     {
         return response()->json(Ong::findOrFail($id));
     }
+
+    public function delete($id)
+    {
+        $ong = Ong::find($id);
+        $response['response'] = $ong->delete();
+
+        if(!$response){
+            return response()->json($response, 400);
+        }
+
+        return response()->json($response, 200);
+    }
 }

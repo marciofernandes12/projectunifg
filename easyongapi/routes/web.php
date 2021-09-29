@@ -21,8 +21,8 @@ $router->post('/login', 'OngController@login');
 $router->post('/cadastro', 'OngController@store');
 $router->get('/ongs', 'OngController@index');
 $router->get('/ongs/{id}', 'OngController@show');
-$router->delete('/ongs/{id}', 'OngController@delete');
 $router->put('/ongs/{id}', 'OngController@update');
+$router->delete('/ongs/{id}', 'OngController@delete');
 
 
 

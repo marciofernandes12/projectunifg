@@ -35,17 +35,17 @@ export class OngRepository {
     }
 
     public readById(id: string): Observable<Ong> {
-        const url = `${this.baseUrl}/${id}`
+        const url = `${this.baseUrl}/${id}`;
         return this.http.get<Ong>(url);
     }
 
     public update(ong: Ong): Observable<UpdateResponse> {
-        const url = `${this.baseUrl}/${ong}/${ong.ong_id}`
+        const url = `${this.baseUrl}/${ong}/${ong.ong_id}`;
         return this.http.put<UpdateResponse>(url, ong);
     }
 
     public delete(id: number): Observable<Ong> {
-        const url = `${this.baseUrl}/${id}`
+        const url = `${this.baseUrl}/${id}`;
         return this.http.delete<Ong>(url);
     }
 
