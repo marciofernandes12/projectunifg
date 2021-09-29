@@ -19,19 +19,20 @@ $router->get('/', function () use ($router) {
 
 $router->post('/login', 'OngController@login');
 $router->post('/cadastro', 'OngController@store');
+$router->get('/ongs', 'OngController@index');
+$router->get('/ongs/{id}', 'OngController@show');
+$router->delete('/ongs/{id}', 'OngController@delete');
+$router->put('/ongs/{id}', 'OngController@update');
 
 
 
-$router->group(['prefix' => 'ongs'], function () use ($router) {
-    $router->post('/login', 'OngController@login');
-    $router->post('/cadastro', 'OngController@store');
-    $router->get('', 'OngController@index');
-    $router->get('/{id}', 'OngController@show');
-    $router->put('/alterar/{id}', 'OngController@update');
-    $router->delete('{id}', 'OngController@delete');
-});
-$router->group(['prefix' => 'users'], function () use ($router) {
-    $router->post('/cadastro', 'UserController@store');
-    $router->put('/alterar/{id}', 'UserController@update');
-    $router->delete('{id}', 'UserController@delete');
-});
+// $router->group(['prefix' => 'ongs'], function () use ($router) {
+//     $router->post('/login', 'OngController@login');
+//     $router->post('/cadastro', 'OngController@store');
+//     $router->get('', 'OngController@index');
+// });
+// $router->group(['prefix' => 'users'], function () use ($router) {
+//     $router->post('/cadastro', 'UserController@store');
+//     $router->put('/alterar/{id}', 'UserController@update');
+//     $router->delete('{id}', 'UserController@delete');
+// });
