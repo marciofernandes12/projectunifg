@@ -43,10 +43,10 @@ export class Tab1Page implements OnInit {
             .pipe(take(1))
             .subscribe(
                 (response: Array<Ong>) => {
-                    response.map((ong, index) => {
-                        console.log(ong);
-                    });
-                    // this.loadMap(response.ong_latitude, response.ong_longitude);
+                    const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
+                    console.log(markers);
+
+                    this.loadMap(50.5, 30.5, markers);
                 }
             );
         // this.geoLocation
@@ -82,7 +82,7 @@ export class Tab1Page implements OnInit {
 
     // }
 
-    public loadMap(lat, long): void {
+    public loadMap(lat, long, m: Array<any>): void {
         if (!this.map) {
         this.map = new Map('mapId2').setView([lat, long], 15);
 
@@ -97,15 +97,31 @@ export class Tab1Page implements OnInit {
         const greenIcon = new leafIcon({
             iconUrl: '../../assets/icon/heart.png',
         });
-        this.newMarker = L.marker([lat, long], {
-            draggable: false,
-            icon: greenIcon,
-        })
+        this.newMarker = m.map((coords)=>{
+
+
+            console.log(coords);
+
+
+            return L.marker(coords, {
+                draggable: false,
+                icon: greenIcon,
+            })
             .addTo(this.map)
             .bindPopup('Você')
             .openPopup();
-        this.latitude = lat;
-        this.longitude = long;
+
+        });
+
+        // this.newMarker = L.marker([lat, long], {
+        //     draggable: false,
+        //     icon: greenIcon,
+        // })
+        //     .addTo(this.map)
+        //     .bindPopup('Você')
+        //     .openPopup();
+        // this.latitude = lat;
+        // this.longitude = long;
         L.tileLayer(
             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             {}

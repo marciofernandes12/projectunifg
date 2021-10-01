@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -74,8 +74,8 @@ $app->configure('cors');
 */
 
 $app->middleware([
-    App\Http\Middleware\Cors::class,
     Fruitcake\Cors\HandleCors::class,
+    \App\Http\Middleware\Cors::class,
 ]);
 
 // $app->routeMiddleware([

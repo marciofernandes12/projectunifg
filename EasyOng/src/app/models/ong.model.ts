@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export class Ong {
     public ong_id: string;
     public ong_name: string;
@@ -15,5 +16,5 @@ export class Ong {
     public ong_descricao: string;
     public ong_email: string;
     public ong_senha: string;
-    public active: string;
+    // public active: string;
 }
