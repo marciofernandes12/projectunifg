@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Map, Popup } from 'leaflet';
-import { take } from 'rxjs/operators';
 
-import { Ong } from './../../models/ong.model';
 import { OngRepository } from './../../repositories/ong.service.repository';
 
 declare let L: any;
@@ -39,27 +37,27 @@ export class Tab1Page implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.ongRepository.read()
-            .pipe(take(1))
-            .subscribe(
-                (response: Array<Ong>) => {
-                    const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
-                    console.log(markers);
+        // this.ongRepository.read()
+        //     .pipe(take(1))
+        //     .subscribe(
+        //         (response: Array<Ong>) => {
+        //             const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
+        //             console.log(markers);
 
-                    this.loadMap(50.5, 30.5, markers);
-                }
-            );
-        // this.geoLocation
-        // .getCurrentPosition()
-        // .then((resp) => {
-        //     this.latitude = resp.coords.latitude;
-        //     this.longitude = resp.coords.longitude;
-        //     this.loadMap(this.latitude, this.longitude);
-        //     // this.map.on('dblclick', (e) => { this.onMapClick(e); });
-        // })
-        // .catch((error) => {
-        //     console.log('Error ao buscar localização', error);
-        // });
+        //             this.loadMap(50.5, 30.5, markers);
+        //         }
+        //     );
+        this.geoLocation
+        .getCurrentPosition()
+        .then((resp) => {
+            this.latitude = resp.coords.latitude;
+            this.longitude = resp.coords.longitude;
+            this.loadMap(this.latitude, this.longitude);
+            // this.map.on('dblclick', (e) => { this.onMapClick(e); });
+        })
+        .catch((error) => {
+            console.log('Error ao buscar localização', error);
+        });
     }
 
     // onMapClick(e) {
@@ -82,7 +80,8 @@ export class Tab1Page implements OnInit {
 
     // }
 
-    public loadMap(lat, long, m: Array<any>): void {
+    // public loadMap(lat, long, m: Array<any>): void {
+    public loadMap(lat, long): void {
         if (!this.map) {
         this.map = new Map('mapId2').setView([lat, long], 15);
 
@@ -97,31 +96,31 @@ export class Tab1Page implements OnInit {
         const greenIcon = new leafIcon({
             iconUrl: '../../assets/icon/heart.png',
         });
-        this.newMarker = m.map((coords)=>{
+        // this.newMarker = m.map((coords)=>{
 
 
-            console.log(coords);
+        //     console.log(coords);
 
 
-            return L.marker(coords, {
-                draggable: false,
-                icon: greenIcon,
-            })
-            .addTo(this.map)
-            .bindPopup('Você')
-            .openPopup();
-
-        });
-
-        // this.newMarker = L.marker([lat, long], {
-        //     draggable: false,
-        //     icon: greenIcon,
-        // })
+        //     return L.marker(coords, {
+        //         draggable: false,
+        //         icon: greenIcon,
+        //     })
         //     .addTo(this.map)
         //     .bindPopup('Você')
         //     .openPopup();
-        // this.latitude = lat;
-        // this.longitude = long;
+
+        // });
+
+        this.newMarker = L.marker([lat, long], {
+            draggable: false,
+            icon: greenIcon,
+        })
+            .addTo(this.map)
+            .bindPopup('Você')
+            .openPopup();
+        this.latitude = lat;
+        this.longitude = long;
         L.tileLayer(
             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             {}

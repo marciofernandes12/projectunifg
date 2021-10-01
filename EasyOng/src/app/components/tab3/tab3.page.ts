@@ -15,5 +15,8 @@ export class Tab3Page {
   public goToSignup(): void {
     this.route.navigate(['/signup']);
   }
+  public goToSignin(): void {
+    this.route.navigate(['/signin']);
+  }
 
 }

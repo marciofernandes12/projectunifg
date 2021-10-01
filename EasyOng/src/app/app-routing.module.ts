@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./components/signup/signup.module').then(m => m.SignupPageModule)
+  },  {
+    path: 'signin',
+    loadChildren: () => import('./components/signin/signin.module').then( m => m.SigninPageModule)
   }
+
 
 ];
 @NgModule({
