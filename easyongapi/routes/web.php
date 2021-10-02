@@ -17,22 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/login', 'OngController@login');
+$router->post('/login', 'OngController@signin');
 $router->post('/cadastro', 'OngController@store');
+$router->post('/remember/{email}', 'OngController@remember');
+$router->get('/ong/{name}', 'OngController@showByName');
 $router->get('/ongs', 'OngController@index');
 $router->get('/ongs/{id}', 'OngController@show');
 $router->put('/ongs/{id}', 'OngController@update');
 $router->delete('/ongs/{id}', 'OngController@delete');
-
-
-
-// $router->group(['prefix' => 'ongs'], function () use ($router) {
-//     $router->post('/login', 'OngController@login');
-//     $router->post('/cadastro', 'OngController@store');
-//     $router->get('', 'OngController@index');
-// });
-// $router->group(['prefix' => 'users'], function () use ($router) {
-//     $router->post('/cadastro', 'UserController@store');
-//     $router->put('/alterar/{id}', 'UserController@update');
-//     $router->delete('{id}', 'UserController@delete');
-// });

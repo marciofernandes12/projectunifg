@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Credenciais } from '../models/credenciais.model';
 import { Ong } from '../models/ong.model';
 import { UpdateResponse } from './../models/update.model';
 
@@ -19,15 +20,6 @@ export class OngRepository {
       private http: HttpClient,
     ) { }
 
-    // public showMessage(msg: string, isError: boolean = false): void {
-    //     this.snackBar.open(msg, 'x', {
-    //     duration: 3000,
-    //     horizontalPosition: 'right',
-    //     verticalPosition: 'top',
-    //     panelClass: isError ? ['msg-error'] : ['msg-success']
-    //     });
-    // }
-
     public create(ong: Ong): Observable<Ong> {
         return this.http.post<Ong>(`${this.baseUrl}${this.cadastro}`, ong);
     }
@@ -41,6 +33,11 @@ export class OngRepository {
         return this.http.get<Ong>(url);
     }
 
+    public signin(credenciais: Credenciais): Observable<Ong> {
+        const url = `${this.baseUrl}${this.login}`;
+        return this.http.post<Ong>(url, credenciais);
+    }
+
     public update(ong: Ong): Observable<UpdateResponse> {
         const url = `${this.baseUrl}/${this.ong}/${ong.ong_id}`;
         return this.http.put<UpdateResponse>(url, ong);
@@ -51,8 +48,4 @@ export class OngRepository {
         return this.http.delete<Ong>(url);
     }
 
-    // public handlerError(e: any): Observable<any> {
-    //     this.showMessage('Ocorreu um erro!', true)
-    //     return EMPTY
-    // }
 }

@@ -63,4 +63,40 @@ class OngController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function signin(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $ong = Ong::where(
+            ['ong_email'=>$data['ong_email']],
+            ['ong_senha'=>$data['ong_senha']]
+        )
+        ->first();
+
+        if(!$ong){
+            return response()->json($ong, 400);
+        }
+
+        return response()->json($ong, 200);
+    }
+
+
+    public function showByName($name)
+    {
+        $ong = Ong::where(
+            'ong_name', $name,
+        )
+        ->orWhere('ong_name', 'like', '%' . $name . '%')->get();
+
+        if(!$ong){
+            return response()->json($ong, 400);
+        }
+
+        return response()->json($ong, 200);
+    }
+
+    public function remember($email)
+    {
+    }
 }
