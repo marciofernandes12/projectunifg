@@ -47,4 +47,8 @@ export class SigninPage implements OnInit {
     );
   }
 
+  public goToHome(): void {
+    this.route.navigate(['home']);
+  }
+
 }

@@ -1,34 +1,27 @@
+
+<!-- <div class="header">
+  <img src="../../../assets/imgs/home.svg"  width="30"  height="30" />
+  <div class="header-logo">
+    <span>EASYONG</span>
+  </div>
+</div> -->
+
 <ion-content>
   <div class="container">
-    <form [formGroup]="form">
-      
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <ion-input
-              type="text"
-              formControlName="ong_email"
-              placeholder="E-mail"
-            ></ion-input>
-          </ion-col>
 
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_senha"
-              placeholder="Senha"
-            ></ion-input>
-          </ion-col>
-        </ion-row>
+    <div class="logo">
+      <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
+    </div>
 
-        <ion-row>
-          <ion-col size="12">
-            <ion-button expand="block" shape="round" fill="outline" (click)="signin()"
-              >entrar</ion-button
-            >
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
+    <div class="fields">      
+        <ion-input placeholder="EMAIL"></ion-input>
+        <!-- <input type="email" placeholder="EMAIL"> -->
+        <ion-input type="password" placeholder="SENHA"></ion-input>
+        <div class="link">ESQUECEU A SENHA?</div>
+        <button class="outline">ENTRAR</button>
+        <div class="link center" (click)="goToHome()">ENTRAR SEM LOGIN</div>
+        <button class="full">CADASTRAR-SE</button>
+    </div>
+
   </div>
 </ion-content>
