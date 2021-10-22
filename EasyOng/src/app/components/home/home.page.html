@@ -1,9 +1,4 @@
-<div class="header">
-  <img src="../../../assets/imgs/home.svg"  width="30"  height="30" />
-  <div class="header-logo">
-    <span>EASYONG</span>
-  </div>
-</div>
+<app-header></app-header>
 
 <ion-content>
   <div class="container">
@@ -16,19 +11,19 @@
     <ion-label>Opções</ion-label>
     <div class="opcoes">
 
-      <div class="card">
+      <div class="card" (click)="goToMap()">
         <img src="../../../assets/imgs/marker.png" width="33" height="33" />
       </div>
 
-      <div class="card">
+      <div class="card" (click)="goToSearch()">
         <img src="../../../assets/imgs/search.png" width="33" height="33" />
       </div>
 
       <div class="card">
         <img src="../../../assets/imgs/people.png" width="33" height="33" />
       </div>
-
-      <div class="card">
+      
+        <div class="card" (click)="goToTalkUs()">
         <img src="../../../assets/imgs/talk.png" width="33" height="33" />
       </div>
 

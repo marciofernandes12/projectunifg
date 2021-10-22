@@ -48,7 +48,15 @@ export class SigninPage implements OnInit {
   }
 
   public goToHome(): void {
-    this.route.navigate(['home']);
+    this.route.navigate(['/home']);
+  }
+
+  public goToSignup(): void {
+    this.route.navigate(['/signup']);
+  }
+
+  public goToForget(): void {
+    this.route.navigate(['/forget']);
   }
 
 }

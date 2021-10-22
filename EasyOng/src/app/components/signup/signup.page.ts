@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController } from '@ionic/angular';
 import { Map, Popup } from 'leaflet';
@@ -16,21 +17,20 @@ declare let L: any;
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-
   map: Map;
-    popup: Popup;
-    newMarker: any;
-    address: string[];
-    latitude: any = '';
-    longitude: any = '';
-    dados: any = '';
-    mostrar = false;
-    numero;
-    valor;
-    votos = 0;
-    estrelas = null;
-    nome;
-    foto;
+  popup: Popup;
+  newMarker: any;
+  address: string[];
+  latitude;
+  longitude;
+  dados: any = '';
+  mostrar = false;
+  numero;
+  valor;
+  votos = 0;
+  estrelas = null;
+  nome;
+  foto;
 
   public form: FormGroup;
   public step: number;
@@ -38,34 +38,48 @@ export class SignupPage implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly ongRepository: OngRepository,
+    private readonly route: Router,
 
     public loadingController: LoadingController,
-    private geoLocation: Geolocation,
-  ) { }
+    private geoLocation: Geolocation
+  ) {}
 
   public ngOnInit(): void {
     this.step = 1;
     this.createForm();
     console.log(this.step);
 
+    this.geoLocation.getCurrentPosition().then((resp) => {
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
 
-        this.geoLocation
-        .getCurrentPosition()
-        .then((resp) => {
-            this.latitude = resp.coords.latitude;
-            this.longitude = resp.coords.longitude;
-            this.loadMap(this.latitude, this.longitude);
-            // this.map.on('dblclick', (e) => { this.onMapClick(e); });
-        })
-        .catch((error) => {
-            console.log('Error ao buscar localização', error);
-        });
+      const myLatlng = { lat: this.latitude, lng: this.longitude };
+
+      const map = new google.maps.Map(
+        document.getElementById('opa') as HTMLElement,
+        { zoom: 18, center: myLatlng, disableDefaultUI: true }
+      );
+
+      const marker = new google.maps.Marker({
+        position: myLatlng,
+        map,
+        draggable: true,
+        title: 'Click to zoom',
+      });
+
+      marker.addListener('dragend', () => {
+        console.log(marker.getPosition().lat());
+        console.log(marker.getPosition().lng());
+
+        map.setCenter(marker.getPosition() as google.maps.LatLng);
+      });
+    });
   }
 
   public createForm(): void {
     this.form = this.formBuilder.group({
-      ong_name: ['',[Validators.required]],
-      ong_cnpj_cpf: ['',[Validators.required]],
+      ong_name: ['', [Validators.required]],
+      ong_cnpj_cpf: ['', [Validators.required]],
       ong_cidade: [''],
       ong_bairro: [''],
       ong_estado: [''],
@@ -74,75 +88,26 @@ export class SignupPage implements OnInit {
       ong_complemento: [''],
       ong_latitude: [''],
       ong_longitude: [''],
-      ong_telefone: ['',[Validators.required]],
-      ong_responsavel: ['',[Validators.required]],
+      ong_telefone: ['', [Validators.required]],
+      ong_responsavel: ['', [Validators.required]],
       ong_descricao: [''],
-      ong_email: ['',[Validators.required]],
-      ong_senha: ['',[Validators.required]],
+      ong_email: ['', [Validators.required]],
+      ong_senha: ['', [Validators.required]],
     });
   }
 
   public next(): void {
-    this.ongRepository.create(this.form.value)
+    this.ongRepository
+      .create(this.form.value)
       .pipe(take(1))
-      .subscribe((createResponse)=>{
+      .subscribe((createResponse) => {
         console.log(createResponse);
       });
     console.log(this.form.value);
-    this.step = this.step+1;
+    this.step = this.step + 1;
   }
 
   public back(): void {
-    console.log(this.form.value);
-    this.step = this.step-1;
+    this.route.navigate(['']);
   }
-
-  public loadMap(lat, long): void {
-    if (!this.map) {
-    this.map = new Map('opa').setView([lat, long], 15);
-
-    const leafIcon = L.Icon.extend({
-        options: {
-        iconSize: [60, 95],
-        iconAnchor: [22, 94],
-        popupAnchor: [7, -76],
-        },
-    });
-
-    const greenIcon = new leafIcon({
-        iconUrl: '../../../assets/icon/heart.png',
-    });
-    // this.newMarker = m.map((coords)=>{
-
-
-    //     console.log(coords);
-
-
-    //     return L.marker(coords, {
-    //         draggable: false,
-    //         icon: greenIcon,
-    //     })
-    //     .addTo(this.map)
-    //     .bindPopup('Você')
-    //     .openPopup();
-
-    // });
-
-    this.newMarker = L.marker([lat, long], {
-        draggable: false,
-        icon: greenIcon,
-    })
-        .addTo(this.map)
-        .bindPopup('Você')
-        .openPopup();
-    this.latitude = lat;
-    this.longitude = long;
-    L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {}
-    ).addTo(this.map);
-    Map.on('locationfound', this.loadMap);
-    }
-}
-
 }

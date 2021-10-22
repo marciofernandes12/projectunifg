@@ -1,11 +1,3 @@
-
-<!-- <div class="header">
-  <img src="../../../assets/imgs/home.svg"  width="30"  height="30" />
-  <div class="header-logo">
-    <span>EASYONG</span>
-  </div>
-</div> -->
-
 <ion-content>
   <div class="container">
 
@@ -15,12 +7,11 @@
 
     <div class="fields">      
         <ion-input placeholder="EMAIL"></ion-input>
-        <!-- <input type="email" placeholder="EMAIL"> -->
         <ion-input type="password" placeholder="SENHA"></ion-input>
-        <div class="link">ESQUECEU A SENHA?</div>
+        <div class="link" (click)="goToForget()">ESQUECEU A SENHA?</div>
         <button class="outline">ENTRAR</button>
         <div class="link center" (click)="goToHome()">ENTRAR SEM LOGIN</div>
-        <button class="full">CADASTRAR-SE</button>
+        <button class="full" (click)="goToSignup()">CADASTRAR-SE</button>
     </div>
 
   </div>

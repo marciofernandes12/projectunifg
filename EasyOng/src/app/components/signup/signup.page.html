@@ -1,158 +1,21 @@
 <ion-content>
   <div class="container">
-    <form [formGroup]="form">
-      <ion-grid>
 
-        <ion-row>
+    <div class="logo">
+      <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
+    </div>
 
-          <ion-col size="12">
-            <ion-label>Informações básicas</ion-label>
-          </ion-col>
-
-          <ion-col size="12">
-            <ion-input
-              type="text"
-              formControlName="ong_name"
-              placeholder="Nome da instituição"
-            ></ion-input>
-          </ion-col>
-
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_cnpj_cpf"
-              placeholder="CPF/CNPJ"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <ion-label>Endereco</ion-label>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              placeholder="CEP"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_cidade"
-              placeholder="Cidade"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_bairro"
-              placeholder="Bairro"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_estado"
-              placeholder="UF"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_rua"
-              placeholder="Endereço"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_numero"
-              placeholder="Nº"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_complemento"
-              placeholder="Complemento"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <div id="opa" style="height:280px"></div>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_latitude"
-              placeholder="Latitude"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="3">
-            <ion-input
-              type="tel"
-              formControlName="ong_longitude"
-              placeholder="Longitude"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <ion-label>Contato</ion-label>
-          </ion-col>
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_telefone"
-              placeholder="Telefone"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_responsavel"
-              placeholder="Responsável"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <ion-label>Sobre a ONG</ion-label>
-          </ion-col>
-          <ion-col size="12">
-            <ion-textarea formControlName="ong_descricao" rows="12" cols="20" placeholder="Enter any notes here..."></ion-textarea>
-          </ion-col>
-          <ion-col size="12">
-            <ion-label>Acesso</ion-label>
-          </ion-col>
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_email"
-              placeholder="E-mail"
-            ></ion-input>
-          </ion-col>
-          <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="ong_senha"
-              placeholder="Senha"
-            ></ion-input>
-          </ion-col>
-          <!-- <ion-col size="12">
-            <ion-input
-              type="tel"
-              formControlName="active"
-              placeholder="CPF/CNPJ"
-            ></ion-input>
-          </ion-col> -->
-
-        </ion-row>
-
-        <ion-row >
-          <ion-col size="6">
-            <ion-button type="button" (click)="next()">Salvar</ion-button>
-          </ion-col>
-          <ion-col size="6">
-            <ion-button type="button" [disabled]="step === 1" (click)="back()">Voltar</ion-button>
-          </ion-col>
-        </ion-row>       
-       
-      </ion-grid>
-    </form>
+    <div class="fields">      
+        <ion-input placeholder="NOME"></ion-input>
+        <ion-input placeholder="CPF / CPNJ"></ion-input>
+        <ion-input placeholder="RESPONSAVEL"></ion-input>
+        <div id="opa" style="height:335px"></div>
+        <ion-input placeholder="EMAIL"></ion-input>
+        <ion-input type="password" placeholder="SENHA"></ion-input>
+        <ion-input type="password" placeholder="CONFIRME A SENHA"></ion-input>
+        <button class="outline" (click)="back()">VOLTAR</button>
+        <button class="full">SALVAR</button>
+    </div>
 
   </div>
 </ion-content>

@@ -47,5 +47,4 @@ export class OngRepository {
         const url = `${this.baseUrl}/${id}`;
         return this.http.delete<Ong>(url);
     }
-
 }

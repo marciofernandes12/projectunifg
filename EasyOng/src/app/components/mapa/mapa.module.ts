@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HeaderPageModule } from './../header/header.module';
-import { HomePageRoutingModule } from './home-routing.module';
-import { HomePage } from './home.page';
+import { MapaPageRoutingModule } from './mapa-routing.module';
+import { MapaPage } from './mapa.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    MapaPageRoutingModule,
     HeaderPageModule
   ],
-  declarations: [HomePage]
+  declarations: [MapaPage]
 })
-export class HomePageModule {}
+export class MapaPageModule {}
