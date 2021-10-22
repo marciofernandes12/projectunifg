@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-busca',
@@ -64,9 +65,15 @@ export class BuscaPage implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private readonly route: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  public goToOng(id: number): void {
+    this.route.navigate(['/ong']);
   }
 
 }

@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
+import { HeaderPageModule } from './../header/header.module';
 import { OngPageRoutingModule } from './ong-routing.module';
-
 import { OngPage } from './ong.page';
 
 @NgModule({
@@ -13,7 +12,8 @@ import { OngPage } from './ong.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    OngPageRoutingModule
+    OngPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [OngPage]
 })
