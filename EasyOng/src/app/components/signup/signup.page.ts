@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController } from '@ionic/angular';
-import { Map, Popup } from 'leaflet';
 import { take } from 'rxjs/operators';
 
 import { OngRepository } from './../../repositories/ong.service.repository';
+import { ToastService } from './../../services/toast.service';
 
 declare let L: any;
 
@@ -17,97 +17,79 @@ declare let L: any;
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  map: Map;
-  popup: Popup;
-  newMarker: any;
-  address: string[];
-  latitude;
-  longitude;
-  dados: any = '';
-  mostrar = false;
-  numero;
-  valor;
-  votos = 0;
-  estrelas = null;
-  nome;
-  foto;
+    public form: FormGroup;
+    public step: number;
+    public lat: number;
+    public lng: number;
 
-  public form: FormGroup;
-  public step: number;
+    constructor(
+        private readonly formBuilder: FormBuilder,
+        private readonly ongRepository: OngRepository,
+        private readonly route: Router,
+        private readonly toast: ToastService,
+        public loadingController: LoadingController,
+        private geoLocation: Geolocation
+    ) {}
 
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly ongRepository: OngRepository,
-    private readonly route: Router,
+    public ngOnInit(): void {
+        this.createForm();
 
-    public loadingController: LoadingController,
-    private geoLocation: Geolocation
-  ) {}
+        this.geoLocation.getCurrentPosition().then((resp) => {
+            this.lat = resp.coords.latitude;
+            this.lng = resp.coords.longitude;
+            this.defineLatLng(this.lat, this.lng);
 
-  public ngOnInit(): void {
-    this.step = 1;
-    this.createForm();
-    console.log(this.step);
+            const myLatlng = { lat: this.lat, lng: this.lng };
 
-    this.geoLocation.getCurrentPosition().then((resp) => {
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
+            const map = new google.maps.Map(
+                document.getElementById('opa') as HTMLElement,
+                { zoom: 18, center: myLatlng, disableDefaultUI: true }
+            );
 
-      const myLatlng = { lat: this.latitude, lng: this.longitude };
+            const marker = new google.maps.Marker({
+                position: myLatlng,
+                map,
+                draggable: true,
+                title: 'Click to zoom',
+            });
 
-      const map = new google.maps.Map(
-        document.getElementById('opa') as HTMLElement,
-        { zoom: 18, center: myLatlng, disableDefaultUI: true }
-      );
+            marker.addListener('dragend', () => {
+                this.lat = marker.getPosition().lat();
+                this.lng = marker.getPosition().lng();
+                this.defineLatLng(this.lat, this.lng);
 
-      const marker = new google.maps.Marker({
-        position: myLatlng,
-        map,
-        draggable: true,
-        title: 'Click to zoom',
-      });
+                map.setCenter(marker.getPosition() as google.maps.LatLng);
+            });
+        });
+    }
 
-      marker.addListener('dragend', () => {
-        console.log(marker.getPosition().lat());
-        console.log(marker.getPosition().lng());
+    public createForm(): void {
+        this.form = this.formBuilder.group({
+            ong_name: ['', [Validators.required]],
+            ong_cnpj_cpf: ['', [Validators.required]],
+            ong_latitude: ['', [Validators.required]],
+            ong_longitude: ['', [Validators.required]],
+            ong_responsavel: ['', [Validators.required]],
+            ong_email: ['', [Validators.required, Validators.email]],
+            ong_senha: ['', [Validators.required]],
+        });
+    }
 
-        map.setCenter(marker.getPosition() as google.maps.LatLng);
-      });
-    });
-  }
+    public back(): void {
+        this.route.navigate(['']);
+    }
 
-  public createForm(): void {
-    this.form = this.formBuilder.group({
-      ong_name: ['', [Validators.required]],
-      ong_cnpj_cpf: ['', [Validators.required]],
-      ong_cidade: [''],
-      ong_bairro: [''],
-      ong_estado: [''],
-      ong_rua: [''],
-      ong_numero: [''],
-      ong_complemento: [''],
-      ong_latitude: [''],
-      ong_longitude: [''],
-      ong_telefone: ['', [Validators.required]],
-      ong_responsavel: ['', [Validators.required]],
-      ong_descricao: [''],
-      ong_email: ['', [Validators.required]],
-      ong_senha: ['', [Validators.required]],
-    });
-  }
+    public defineLatLng(lat: number, lng: number): void {
+        this.form.controls.ong_latitude.setValue(lat);
+        this.form.controls.ong_longitude.setValue(lng);
+    }
 
-  public next(): void {
-    this.ongRepository
-      .create(this.form.value)
-      .pipe(take(1))
-      .subscribe((createResponse) => {
-        console.log(createResponse);
-      });
-    console.log(this.form.value);
-    this.step = this.step + 1;
-  }
-
-  public back(): void {
-    this.route.navigate(['']);
-  }
+    public signup(): void {
+        this.ongRepository.create(this.form.value)
+        .pipe(take(1))
+        .subscribe(()=> {
+            this.toast.displayToast();
+            this.route.navigate(['']);
+        });
+    }
 }

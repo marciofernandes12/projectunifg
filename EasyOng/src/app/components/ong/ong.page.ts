@@ -56,7 +56,7 @@ export class OngPage implements OnInit {
             this.latitude = resp.coords.latitude;
             this.longitude = resp.coords.longitude;
             const loader = new Loader({
-                apiKey: 'AIzaSyC8gWRFDkGAcwlvGXHm16CZMU0NprfoTZ4'
+                apiKey: ''
             });
 
             loader.load().then(() => {

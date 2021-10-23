@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
 Route::post('/login', [OngController::class, 'signin'])->name('OngController@signin');
 Route::post('/cadastro', [OngController::class, 'store'])->name('OngController@store');
 Route::post('/remember/{email}', [OngController::class, 'remember'])->name('OngController@remember');

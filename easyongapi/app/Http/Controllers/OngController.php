@@ -11,12 +11,6 @@ class OngController extends Controller
     public function index()
     {
         return response()->json(Ong::all());
-        // ->header('Content-Type', 'json')
-        //     ->header('Access-Control-Allow-Origin','*')
-        //     ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE',)
-        //     ->header('Access-Control-Allow-Credentials','true')
-        //     ->header('Access-Control-Max-Age','86400')
-        //     ->header('Access-Control-Allow-Headers', '*');
     }
 
     public function store(Request $request)
@@ -54,8 +48,6 @@ class OngController extends Controller
 
     public function delete($id)
     {
-
-
         $ong = Ong::findOrFail($id);
         $response['response'] = $ong->delete();
 

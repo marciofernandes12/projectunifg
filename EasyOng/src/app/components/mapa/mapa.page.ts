@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { take } from 'rxjs/operators';
+import { Ong } from 'src/app/models/ong.model';
 
 import { OngRepository } from './../../repositories/ong.service.repository';
 
@@ -42,23 +44,24 @@ export class MapaPage implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        // this.ongRepository.read()
-        //     .pipe(take(1))
-        //     .subscribe(
-        //         (response: Array<Ong>) => {
-        //             const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
-        //             console.log(markers);
+        this.ongRepository.read()
+            .pipe(take(1))
+            .subscribe(
+                (response: Array<Ong>) => {
+                    console.log(response);
+                    // const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
+                    // console.log(markers);
 
-        //             this.loadMap(50.5, 30.5, markers);
-        //         }
-        //     );
+                    // this.loadMap(50.5, 30.5, markers);
+                }
+            );
         this.geoLocation
         .getCurrentPosition()
         .then((resp) => {
             this.latitude = resp.coords.latitude;
             this.longitude = resp.coords.longitude;
             const loader = new Loader({
-                apiKey: 'AIzaSyC8gWRFDkGAcwlvGXHm16CZMU0NprfoTZ4'
+                apiKey: ''
             });
 
             loader.load().then(() => {

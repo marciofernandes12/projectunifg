@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 import { Credenciais } from '../models/credenciais.model';
 import { Ong } from '../models/ong.model';
 import { UpdateResponse } from './../models/update.model';
+import { LoaderService } from './../services/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +14,21 @@ import { UpdateResponse } from './../models/update.model';
 export class OngRepository {
 
     public baseUrl = 'http://localhost:8000';
-    public ong = '/ongs';
-    public cadastro = '/cadastro';
-    public login = '/login';
+    public ong = '/api/ongs';
+    public cadastro = '/api/cadastro';
+    public login = '/api/login';
 
     constructor(
       private http: HttpClient,
+      private loader: LoaderService
     ) { }
 
     public create(ong: Ong): Observable<Ong> {
-        return this.http.post<Ong>(`${this.baseUrl}${this.cadastro}`, ong);
+        this.loader.showLoader();
+        return this.http.post<Ong>(`${this.baseUrl}${this.cadastro}`, ong)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 
     public read(): Observable<Ong[]> {
