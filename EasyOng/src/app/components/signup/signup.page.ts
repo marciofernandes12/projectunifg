@@ -87,9 +87,12 @@ export class SignupPage implements OnInit {
     public signup(): void {
         this.ongRepository.create(this.form.value)
         .pipe(take(1))
-        .subscribe(()=> {
-            this.toast.displayToast();
-            this.route.navigate(['']);
-        });
+        .subscribe(
+            ()=> {
+                this.toast.displayToast('Cadastro efetuado com sucesso.');
+                this.route.navigate(['']);
+            },
+            ()=> this.toast.displayToast('falhou')
+        );
     }
 }

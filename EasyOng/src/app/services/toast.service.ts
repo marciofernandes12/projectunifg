@@ -8,11 +8,11 @@ import { ToastController } from '@ionic/angular';
 export class ToastService {
     constructor(public toastController: ToastController) {}
 
-    public displayToast() {
+    public displayToast(msg: string) {
         this.toastController
             .create({
-                header: 'Sucesso!',
-                message: 'Cadastro efetuado com sucesso.',
+                // header: 'Sucesso!',
+                message: msg,
                 position: 'middle',
                 // color: 'success',
                 duration: 4000
