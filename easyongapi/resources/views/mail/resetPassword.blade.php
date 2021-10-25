@@ -1,0 +1,1 @@
+<h1>Senha Alterada! Nova Senha {{$ong->password}}</h1>
