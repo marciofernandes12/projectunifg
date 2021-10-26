@@ -31,6 +31,6 @@ class mailResetPassword extends Mailable
     {
         $this->subject("Sua senha foi redefinida!");
         $this->to('marciofernandes2@outlook.com', $this->ong->ong_name);
-        return $this->view('mail.resetPassword', ['ong' => $this->ong]);
+        return $this->markdown('mail.resetPassword', ['ong' => $this->ong]);
     }
 }

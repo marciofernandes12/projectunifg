@@ -1,1 +1,3 @@
-<h1>Senha Alterada! Nova Senha {{$ong->password}}</h1>
+<h1>Olá {{$ong->ong_name}}</h1>
+<p>Sua Senha Foi Redefinida.</p>
+<p>Senha: {{$ong->password}}</p>
