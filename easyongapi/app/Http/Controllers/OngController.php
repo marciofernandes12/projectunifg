@@ -30,10 +30,12 @@ class OngController extends Controller
 
             if (!empty($ongs)) {
                 throw new Exception("Email cadastrado, favor verificar seu email.");
-            }
-            $ong = Ong::create($data);
+            } else {
 
-            return response()->json($ong, 201);
+                $ong = Ong::create($data);
+                return response()->json($ong, 201);
+            }
+
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
         }

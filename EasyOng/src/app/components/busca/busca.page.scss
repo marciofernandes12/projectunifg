@@ -11,6 +11,12 @@
     align-items: center;
 }
 
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
 .resultado {
     display: flex;
     flex-direction: column;
