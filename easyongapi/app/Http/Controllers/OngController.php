@@ -26,7 +26,7 @@ class OngController extends Controller
     {
         try {
             $data = $request->json()->all();
-            $ongs = Ong::where('ong_email', $request->email)->first();
+            $ongs = Ong::where('ong_email', $request->ong_email)->first();
             if (!empty($ongs)) {
                 throw new Exception("Email cadastrado, favor verificar seu email.");
             }
