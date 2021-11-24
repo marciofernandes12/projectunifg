@@ -9,12 +9,13 @@ import { Ong } from './../models/ong.model';
 export class OngService {
 
     public ong: Ong;
+    public id: string;
 
     public setOng(ong: Ong): void {
         this.ong = ong;
     }
 
-    public getOng(ong: Ong): Ong {
+    public getOng(): Ong {
         return this.ong;
     }
 

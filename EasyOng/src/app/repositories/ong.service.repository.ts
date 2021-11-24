@@ -14,7 +14,8 @@ import { LoaderService } from './../services/loader.service';
 export class OngRepository {
 
     public baseUrl = 'http://localhost:8000';
-    public ong = '/api/ongs';
+    public ongs = '/api/ongs';
+    public ong = '/api/ong';
     public cadastro = '/api/cadastro';
     public login = '/api/login';
 
@@ -32,26 +33,55 @@ export class OngRepository {
     }
 
     public read(): Observable<Ong[]> {
-        return this.http.get<Ong[]>(`${this.baseUrl}${this.ong}`);
+        this.loader.showLoader();
+        return this.http.get<Ong[]>(`${this.baseUrl}${this.ongs}`)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 
     public readById(id: string): Observable<Ong> {
-        const url = `${this.baseUrl}/${id}`;
-        return this.http.get<Ong>(url);
+        this.loader.showLoader();
+        const url = `${this.baseUrl}${this.ongs}/${id}`;
+        return this.http.get<Ong>(url)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
+    }
+
+    public readByName(nome: string): Observable<Array<Ong>> {
+        this.loader.showLoader();
+        const url = `${this.baseUrl}${this.ong}/${nome}`;
+        return this.http.get<Array<Ong>>(url)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 
     public signin(credenciais: Credenciais): Observable<Ong> {
+        this.loader.showLoader();
         const url = `${this.baseUrl}${this.login}`;
-        return this.http.post<Ong>(url, credenciais);
+        return this.http.post<Ong>(url, credenciais)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 
     public update(ong: Ong): Observable<UpdateResponse> {
+        this.loader.showLoader();
         const url = `${this.baseUrl}/${this.ong}/${ong.ong_id}`;
-        return this.http.put<UpdateResponse>(url, ong);
+        return this.http.put<UpdateResponse>(url, ong)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 
     public delete(id: number): Observable<Ong> {
+        this.loader.showLoader();
         const url = `${this.baseUrl}/${id}`;
-        return this.http.delete<Ong>(url);
+        return this.http.delete<Ong>(url)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
     }
 }

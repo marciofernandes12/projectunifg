@@ -40,7 +40,6 @@ export class SigninPage implements OnInit {
     .subscribe(
       (signinResponse)=>{
         this.ongService.setOng(signinResponse);
-        console.log(signinResponse);
         localStorage.setItem('ong_id',signinResponse.ong_id);
         this.route.navigate(['/tabs/tab3']);
       }

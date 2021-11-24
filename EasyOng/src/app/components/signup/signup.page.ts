@@ -1,5 +1,7 @@
+import { validateCnpj } from './../../validators/cnpj.validator';
+import { CpfCpjnService } from './../../services/cpfcnpj.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController } from '@ionic/angular';
@@ -7,6 +9,7 @@ import { take } from 'rxjs/operators';
 
 import { OngRepository } from './../../repositories/ong.service.repository';
 import { ToastService } from './../../services/toast.service';
+import { validateCpf } from 'src/app/validators/cpf.validator';
 
 declare let L: any;
 
@@ -28,11 +31,13 @@ export class SignupPage implements OnInit {
         private readonly route: Router,
         private readonly toast: ToastService,
         public loadingController: LoadingController,
-        private geoLocation: Geolocation
+        private geoLocation: Geolocation,
+        private cpfCpjnService: CpfCpjnService,
     ) {}
 
     public ngOnInit(): void {
         this.createForm();
+        console.log(this.form);
 
         this.geoLocation.getCurrentPosition().then((resp) => {
             this.lat = resp.coords.latitude;
@@ -94,5 +99,20 @@ export class SignupPage implements OnInit {
             },
             ()=> this.toast.displayToast('falhou')
         );
+    }
+
+    public checkType(): void {
+        const value = this.form.get('ong_cnpj_cpf').value;
+        if(value.length !== 0 && value.length === 11){
+            const type = 'CPF';
+            this.form.removeControl('ong_cnpj_cpf');
+            this.form.addControl('ong_cnpj_cpf', new FormControl(value, [Validators.required, validateCpf]));
+        }
+        if(value.length !== 0 && value.length === 14){
+            const type = 'CNPJ';
+            this.form.removeControl('ong_cnpj_cpf');
+            this.form.addControl('ong_cnpj_cpf', new FormControl(value, [Validators.required, validateCnpj]));
+        }
+
     }
 }

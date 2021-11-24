@@ -1,7 +1,10 @@
+import { Ong } from './../../models/ong.model';
+import { OngService } from './../../services/ong.service';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { OngRepository } from 'src/app/repositories/ong.service.repository';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ong',
@@ -10,10 +13,12 @@ import { OngRepository } from 'src/app/repositories/ong.service.repository';
 })
 export class OngPage implements OnInit {
 
-  title = 'google-maps';
+    title = 'google-maps';
 
     public latitude;
     public longitude;
+    public ong: Ong;
+
     public map: google.maps.Map;
     public locations = [
         { lat: -8.1920063, lng: -34.917070 },
@@ -36,51 +41,33 @@ export class OngPage implements OnInit {
 
       constructor(
         public ongRepository: OngRepository,
-        private geoLocation: Geolocation
+        public ongService: OngService,
     ) {}
 
     public ngOnInit(): void {
-        // this.ongRepository.read()
-        //     .pipe(take(1))
-        //     .subscribe(
-        //         (response: Array<Ong>) => {
-        //             const markers  = response.map((ong, index) => [ong.ong_latitude, ong.ong_longitude]);
-        //             console.log(markers);
 
-        //             this.loadMap(50.5, 30.5, markers);
-        //         }
-        //     );
-        this.geoLocation
-        .getCurrentPosition()
-        .then((resp) => {
-            this.latitude = resp.coords.latitude;
-            this.longitude = resp.coords.longitude;
-            const loader = new Loader({
-                apiKey: ''
-            });
+        this.ong = this.ongService.getOng();
 
-            loader.load().then(() => {
-                console.log('loaded gmaps');
-
-                const location = { lat: this.latitude, lng: this.longitude };
-                console.log(location);
-
-
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    center: location,
-                    disableDefaultUI: true,
-                    zoom: 20,
-                });
-
-                const marker = new google.maps.Marker({
-                  position: location,
-                  map,
-                });
-            });
-        })
-        .catch((error) => {
-            console.log('Error ao buscar localização', error);
+        const loader = new Loader({
+            apiKey: ''
         });
+
+        loader.load().then(() => {
+
+            const location = { lat: +this.ong.ong_latitude, lng: +this.ong.ong_longitude };
+
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: location,
+                disableDefaultUI: true,
+                zoom: 20,
+            });
+
+            const marker = new google.maps.Marker({
+                position: location,
+                map,
+            });
+        });
+
     }
 
 }
