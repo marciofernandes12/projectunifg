@@ -16,7 +16,7 @@ class OngController extends Controller
     public function index()
     {
         try {
-            return response()->json(Ong::all());
+            return response()->json(Ong::where('active', 1)->get());
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()]);
         }
@@ -30,12 +30,8 @@ class OngController extends Controller
             $ongs = Ong::where('ong_email', $request->ong_email)->first();
             if (!empty($ongs)) {
                 throw new Exception("Email cadastrado, favor verificar seu email.");
-            } else {
-
-                $ong = Ong::create($data);
-                return response()->json($ong, 201);
             }
-
+            $data['ong_email'] = strtolower($data['ong_email']);
             $data['ong_senha'] = md5($data['ong_senha']);
             $ong = Ong::create($data);
             return response()->json($ong, 201);
@@ -47,13 +43,27 @@ class OngController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = $request->json()->all();
 
             $ong = Ong::findOrFail($id);
-            $response['response'] = $ong->update($data);
 
+            $ong->ong_cnpj_cpf = $request->ong_cnpj_cpf ?? $ong->ong_cnpj_cpf;
+            $ong->ong_cidade =  $request->ong_cidade ?? $ong->ong_cidade;
+            $ong->ong_bairro =  $request->ong_bairro ?? $ong->ong_bairro;
+            $ong->ong_estado =  $request->ong_estado ?? $ong->ong_estado;
+            $ong->ong_rua = $request->ong_rua ?? $ong->ong_rua;
+            $ong->ong_numero = $request->ong_numero ?? $ong->ong_numero;
+            $ong->ong_complemento = $request->ong_complemento ?? $ong->ong_complemento;
+            $ong->ong_latitude = $request->ong_latitude ?? $ong->ong_latitude;
+            $ong->ong_longitude = $request->ong_longitude ?? $ong->ong_longitude;
+            $ong->ong_telefone = $request->ong_telefone ?? $ong->ong_telefone;
+            $ong->ong_responsavel = $request->ong_responsavel ?? $ong->ong_responsavel;
+            $ong->ong_descricao = $request->ong_descricao ?? $ong->ong_descricao;
+            $ong->ong_email = $request->ong_email ?? $ong->ong_email;
+            $ong->ong_senha = $request->ong_senha ?? $ong->ong_senha;
+            $ong->active = $request->active ?? $ong->active;
+            $ong->save();
 
-            return response()->json($response, 200);
+            return response()->json($ong, 200);
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
         }
@@ -71,9 +81,10 @@ class OngController extends Controller
     {
         try {
             $ong = Ong::findOrFail($id);
-            $response['response'] = $ong->delete();
+            $ong->active = 0;
+            $ong->save();
 
-            return response()->json($response, 200);
+            return response()->json($ong, 200);
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
         }
@@ -85,7 +96,12 @@ class OngController extends Controller
 
             $ong = Ong::where('ong_email', $request->ong_email)
                 ->where('ong_senha', md5($request->ong_senha))
+                ->where('active', 1)
                 ->first();
+
+            if (!$ong) {
+                throw new Exception("Usuário ou senha inválida!");
+            }
             return response()->json($ong, 200);
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
@@ -97,7 +113,9 @@ class OngController extends Controller
     {
         try {
             $ong = Ong::where('ong_name', $name)
-                ->orWhere('ong_name', 'like', '%' . $name . '%')->get();
+                ->orWhere('ong_name', 'like', '%' . $name . '%')
+                ->where('active', 1)
+                ->get();
 
 
             return response()->json($ong, 200);

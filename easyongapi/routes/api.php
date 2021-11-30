@@ -26,4 +26,5 @@ Route::get('/ong/{name}', [OngController::class, 'showByName'])->name('OngContro
 Route::get('/ongs', [OngController::class, 'index'])->name('OngController@index');
 Route::get('/ongs/{id}', [OngController::class, 'show'])->name('OngController@show');
 Route::put('/ongs/{id}', [OngController::class, 'update'])->name('OngController@update');
+Route::patch('/ongs/{id}', [OngController::class, 'update'])->name('OngController@update');
 Route::delete('/ongs/{id}', [OngController::class, 'delete'])->name('OngController@delete');
