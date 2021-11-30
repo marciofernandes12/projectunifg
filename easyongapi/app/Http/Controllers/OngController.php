@@ -106,10 +106,10 @@ class OngController extends Controller
         }
     }
 
-    public function remember($email)
+    public function remember(Request $request)
     {
         try {
-            $ong = Ong::where('ong_email', $email)
+            $ong = Ong::where('ong_email', $request->ong_email)
                 ->first();
 
             if (empty($ong)) {
