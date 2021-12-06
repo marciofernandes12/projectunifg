@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="container">
+
+    <div class="indicacao" [formGroup]="form">
+      <ion-label>NOS INDIQUE ALGUMA ONG QUE PODEMOS AJUDAR</ion-label>
+      <ion-textarea rows="25" cols="21" formControlName="indicacao"></ion-textarea>
+    </div>
+
+    <button class="outline" (click)="send()">ENVIAR</button>
+
+  </div>
+
+</ion-content>

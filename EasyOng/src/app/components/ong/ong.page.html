@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="container">
+    <!-- <div class="busca">
+      <ion-input placeholder="BUSCAR POR ..."></ion-input>
+    </div> -->
+
+    <div class="ong">
+      <div class="avatar">
+        <img src="../../../assets/imgs/logo5.png" height="40" width="40" />
+      </div>
+      <div class="info">
+        <ion-label>{{ ong.ong_name }}</ion-label>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="infos">
+      <ion-label>Localização</ion-label>
+      <div id="map" style="height: 335px; margin-top: 16px"></div>
+    </div>
+
+    <div class="infos">
+      <ion-label>Descrição</ion-label>
+      <p>{{ ong.ong_descricao }}</p>
+    </div>
+
+    <div class="infos">
+      <ion-label>Responsável</ion-label>
+      <p>{{ ong.ong_responsavel }}</p>
+    </div>
+
+    <div class="infos">
+      <ion-label>Telefone</ion-label>
+      <p>{{ ong.ong_telefone }}</p>
+    </div>
+
+    <div class="infos">
+      <ion-label>E-mail</ion-label>
+      <p>{{ ong.ong_email }}</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,38 @@
+
+.container {
+    padding: 20px;
+}
+
+.logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-label {
+    font-weight: 600;
+}
+
+.opcoes {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.card {
+    width: 70px;
+    height:70px;
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #c4c4c4;
+    border-radius: 10px;
+}
+
+.card:active {
+    transform:scale(1.05);
+}

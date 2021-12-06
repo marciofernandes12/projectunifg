@@ -1,0 +1,6 @@
+<div class="header">
+  <img (click)="goToHome()" src="../../../assets/imgs/home.svg"  width="30"  height="30" />
+  <span>EASYONG</span>
+  <img *ngIf="session === null" (click)="goToSignin()" src="../../../assets/imgs/login.svg"  width="30"  height="30" />
+  <img *ngIf="session" (click)="logout()" src="../../../assets/imgs/logout.svg"  width="30"  height="30" />
+</div>

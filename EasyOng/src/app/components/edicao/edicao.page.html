@@ -1,0 +1,87 @@
+<app-header></app-header>
+<ion-content>
+  <div class="container">
+
+    <div class="logo">
+      <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
+    </div>
+
+    <form class="fields" [formGroup]="form">
+
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.get('ong_name').errors && form.get('ong_name').touched}" 
+        placeholder="NOME*" formControlName="ong_name"></ion-input>
+        <ng-container *ngIf="form.get('ong_name').touched">
+          <span *ngIf="form.get('ong_name').errors">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+
+      <div class="field">
+        <ion-input (keyup)="checkType()" maxlength="18"
+        [ngClass]="{'field-red': form.get('ong_cnpj_cpf').errors && form.get('ong_cnpj_cpf').touched}" 
+        placeholder="CPF / CPNJ*" formControlName="ong_cnpj_cpf"></ion-input>
+        <ng-container *ngIf="form.get('ong_cnpj_cpf').touched">
+          <span *ngIf="form.get('ong_cnpj_cpf').errors?.required">
+              Campo obrigatório
+          </span>
+          <span *ngIf="form.get('ong_cnpj_cpf').errors?.cnpjInvalid">
+              CNPJ inválido
+          </span>
+          <span *ngIf="form.get('ong_cnpj_cpf').errors?.cpfInvalid">
+              CPF inválido
+          </span>
+        </ng-container>
+      </div>
+
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.get('ong_responsavel').errors && form.get('ong_responsavel').touched}" placeholder="RESPONSAVEL*" formControlName="ong_responsavel"></ion-input>
+        <ng-container *ngIf="form.get('ong_responsavel').touched">
+          <span *ngIf="form.get('ong_responsavel').errors">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+      
+      <ion-label>Arraste o marcador para definir o local*</ion-label>
+      <div id="opa" style="height:335px"></div>
+      
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.get('ong_email').errors && form.get('ong_email').touched}" placeholder="EMAIL*" formControlName="ong_email"></ion-input>
+        <ng-container *ngIf="form.get('ong_email').touched">
+          <span *ngIf="form.get('ong_email').errors?.required">
+            Campo obrigatório
+          </span>
+          <span *ngIf="form.get('ong_email').errors?.email">
+            E-mail inválido
+          </span>
+        </ng-container>
+      </div>
+
+      <!-- <div class="field checkbox">
+        <ion-checkbox color="primary" formControlName="hidden"></ion-checkbox>
+        <span style="color: #264787;">Mostrar mais detalhes</span>
+      </div> -->
+
+      <ul>
+        <li>
+          <div class="field">
+            <ion-textarea rows="6" cols="20" placeholder="Descrição" formControlName="ong_descricao"></ion-textarea>
+          </div>
+        </li>
+        <li>
+          <div class="field">
+            <ion-input type="text" placeholder="Telefone" formControlName="ong_telefone"></ion-input>
+          </div>
+        </li>
+      </ul>
+
+      <button type="button" class="outline" (click)="back()">VOLTAR</button>
+      <button type="button" class="full" (click)="signup()" [disabled]="!form.valid">SALVAR</button>
+      <button type="button" (click)="presentAlertConfirm()" style="background-color: red; color: white;">EXCLUIR</button>
+    </form>
+
+
+  </div>
+</ion-content>

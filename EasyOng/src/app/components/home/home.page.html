@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="container">
+
+    <div class="logo">
+      <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
+    </div>
+
+
+    <ion-label>Opções</ion-label>
+    <div class="opcoes">
+
+      <div class="card" (click)="goToMap()">
+        <img src="../../../assets/imgs/marker.png" width="33" height="33" />
+      </div>
+
+      <div class="card" (click)="goToSearch()">
+        <img src="../../../assets/imgs/search.png" width="33" height="33" />
+      </div>
+
+      <div class="card" (click)="goToEdit()" *ngIf="session !== null && session !== undefined">
+        <img src="../../../assets/imgs/people.png" width="33" height="33" />
+      </div>
+      
+        <div class="card" (click)="goToTalkUs()">
+        <img src="../../../assets/imgs/talk.png" width="33" height="33" />
+      </div>
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,100 @@
+<ion-content>
+  <div class="container">
+
+    <div class="logo">
+      <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
+    </div>
+
+    <form class="fields" [formGroup]="form">
+
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_name.errors && form.controls.ong_name.touched}" 
+        placeholder="Nome*" formControlName="ong_name"></ion-input>
+        <ng-container *ngIf="form.controls.ong_name.touched">
+          <span *ngIf="form.controls.ong_name.errors">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+
+      <div class="field">
+        <ion-input (keyup)="checkType()" maxlength="18"
+        [ngClass]="{'field-red': form.controls.ong_cnpj_cpf.errors && form.controls.ong_cnpj_cpf.touched}" 
+        placeholder="CPF / CPNJ*" formControlName="ong_cnpj_cpf"></ion-input>
+        <ng-container *ngIf="form.controls.ong_cnpj_cpf.touched">
+          <span *ngIf="form.controls.ong_cnpj_cpf.errors?.required">
+              Campo obrigatório
+          </span>
+          <span *ngIf="form.controls.ong_cnpj_cpf.errors?.cnpjInvalid">
+              CNPJ inválido
+          </span>
+          <span *ngIf="form.controls.ong_cnpj_cpf.errors?.cpfInvalid">
+              CPF inválido
+          </span>
+        </ng-container>
+      </div>
+
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_responsavel.errors && form.controls.ong_responsavel.touched}" placeholder="Responsavel*" formControlName="ong_responsavel"></ion-input>
+        <ng-container *ngIf="form.controls.ong_responsavel.touched">
+          <span *ngIf="form.controls.ong_responsavel.errors">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+      
+      <ion-label>Arraste o marcador para definir o local*</ion-label>
+      <div id="opa" style="height:335px"></div>
+      
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_email.errors && form.controls.ong_email.touched}" placeholder="Email*" formControlName="ong_email"></ion-input>
+        <ng-container *ngIf="form.controls.ong_email.touched">
+          <span *ngIf="form.controls.ong_email.errors?.required">
+            Campo obrigatório
+          </span>
+          <span *ngIf="form.controls.ong_email.errors?.email">
+            E-mail inválido
+          </span>
+        </ng-container>
+      </div>
+      
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_senha.errors && form.controls.ong_senha.touched}" type="password" placeholder="Senha*" formControlName="ong_senha"></ion-input>
+        <ng-container *ngIf="form.controls.ong_senha.touched">
+          <span *ngIf="form.controls.ong_senha.errors">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+
+      <!-- <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_conf_senha.errors && form.controls.ong_conf_senha.touched}" type="password*" placeholder="CONFIRME A SENHA* " formControlName="ong_conf_senha"></ion-input>
+        <ng-container *ngIf="form.controls.ong_conf_senha.touched">
+          <span *ngIf="form.controls.ong_conf_senha.errors">
+              Campo obrigatório
+          </span>
+          <span *ngIf="form.controls.ong_conf_senha.errors">
+              As senhas não correspondem
+          </span>
+        </ng-container>
+      </div> -->
+      
+
+
+
+
+
+
+        <!-- <ion-input placeholder="CPF / CPNJ" formControlName="ong_cnpj_cpf"></ion-input>
+        <ion-input placeholder="RESPONSAVEL" formControlName="ong_responsavel"></ion-input>
+        <ion-label>Arraste o marcador para definir o local</ion-label>
+        <div id="opa" style="height:335px"></div>
+        <ion-input placeholder="EMAIL" formControlName="ong_email"></ion-input>
+        <ion-input type="password" placeholder="SENHA" formControlName="ong_senha"></ion-input>
+        <ion-input type="password" placeholder="CONFIRME A SENHA" formControlName="ong_conf_senha"></ion-input> -->
+        <button type="button" class="outline" (click)="back()">VOLTAR</button>
+        <button type="button" class="full" (click)="signup()" [disabled]="!form.valid">SALVAR</button>
+    </form>
+
+  </div>
+</ion-content>

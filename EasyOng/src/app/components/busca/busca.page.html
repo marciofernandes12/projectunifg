@@ -1,0 +1,31 @@
+
+<app-header></app-header>
+
+<ion-content>
+  <div class="container">
+    <div class="busca">
+      <ion-input (keyup)="search()" [(ngModel)]="busca" placeholder="BUSCAR POR ..."></ion-input>
+    </div>
+    <div class="resultado">
+      <ul *ngIf="resultSearch">
+        <li *ngFor="let item of resultSearch">
+          <div class="ong" (click)="goToOng(item)">
+            <div class="avatar">
+              <img src="../../../assets/imgs/logo5.png" height="40" width="40">
+            </div>
+            <div class="info">
+              <ion-label>{{ item.ong_name }}</ion-label>
+              <ion-label>{{ item.ong_telefone }}</ion-label>
+              <ion-label>{{ item.ong_cidade }}</ion-label>
+            </div>
+          </div>
+          
+          <hr>
+        </li>
+      </ul>
+      <div class="empty-state" *ngIf="!resultSearch">
+        <span>Nenhuma ONG encontrada!</span>
+      </div>
+    </div>
+  </div>
+</ion-content> 

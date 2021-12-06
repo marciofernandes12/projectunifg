@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="container">
+
+    <div class="recupera-senha" [formGroup]="form">
+      <ion-label>DIGITE O EMAIL QUE FOI USADO PARA FAZER O CADASTRO</ion-label>
+      <ion-input formControlName="ong_email"></ion-input>
+      <ng-container *ngIf="form.controls.ong_email.touched">
+        <span *ngIf="form.controls.ong_email.errors?.required">
+          Campo obrigatório
+        </span>
+        <span *ngIf="form.controls.ong_email.errors?.email">
+          E-mail inválido
+        </span>
+      </ng-container>
+    </div>
+
+    <button class="outline" (click)="send()">ENVIAR</button>
+
+  </div>
+
+</ion-content>
