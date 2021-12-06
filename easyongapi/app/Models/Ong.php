@@ -12,6 +12,7 @@ class Ong extends Model
     protected $table = 'ongs';
     protected $primaryKey = 'ong_id';
     protected $fillable = [
+        'ong_id',
         'ong_name',
         'ong_cnpj_cpf',
         'ong_cidade',

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\Ong;
+use App\Models\indicacao;
 use Exception;
 use Mockery\CountValidator\Exact;
 use Whoops\Run;
@@ -25,8 +26,8 @@ class OngController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->json()->all();
-            $data['ong_senha'] = md5($data['ong_senha']);
+            $data = $request->all();
+
             $ongs = Ong::where('ong_email', $request->ong_email)->first();
             if (!empty($ongs)) {
                 throw new Exception("Email cadastrado, favor verificar seu email.");
@@ -124,9 +125,10 @@ class OngController extends Controller
         }
     }
 
+
+
     public function remember(Request $request)
     {
-        $data = $request->json()->all();
         try {
             $ong = Ong::where('ong_email', $request->ong_email)
                 ->first();
