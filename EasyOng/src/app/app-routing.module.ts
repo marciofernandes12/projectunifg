@@ -1,10 +1,12 @@
+import { LoginGuard } from './Guards/login.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/signin/signin.module').then(m => m.SigninPageModule)
+    loadChildren: () => import('./components/signin/signin.module').then(m => m.SigninPageModule),
+    canActivate: [LoginGuard]
   },
   {
     path: 'home',
@@ -19,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/signup/signup.module').then(m => m.SignupPageModule)
   },
   {
+    path: 'signin',
+    loadChildren: () => import('./components/signin/signin.module').then(m => m.SigninPageModule)
+  },
+  {
     path: 'search',
     loadChildren: () => import('./components/busca/busca.module').then( m => m.BuscaPageModule)
   },
@@ -29,10 +35,16 @@ const routes: Routes = [
   {
     path: 'forget',
     loadChildren: () => import('./components/recupera-senha/recupera-senha.module').then( m => m.RecuperaSenhaPageModule)
-  },  {
+  },
+  {
     path: 'ong',
     loadChildren: () => import('./components/ong/ong.module').then( m => m.OngPageModule)
   },
+  {
+    path: 'edicao',
+    loadChildren: () => import('./components/edicao/edicao.module').then( m => m.EdicaoPageModule)
+  },
+
 
 
 

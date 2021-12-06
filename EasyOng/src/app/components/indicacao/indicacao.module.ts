@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HeaderPageModule } from './../header/header.module';
@@ -13,7 +13,8 @@ import { IndicacaoPage } from './indicacao.page';
     FormsModule,
     IonicModule,
     IndicacaoPageRoutingModule,
-    HeaderPageModule
+    HeaderPageModule,
+    ReactiveFormsModule
   ],
   declarations: [IndicacaoPage]
 })

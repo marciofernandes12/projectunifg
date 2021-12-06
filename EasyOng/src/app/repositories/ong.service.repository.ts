@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { Credenciais } from '../models/credenciais.model';
+import { IndicacaoModel } from '../models/indicacao.models';
 import { Ong } from '../models/ong.model';
 import { UpdateResponse } from './../models/update.model';
 import { LoaderService } from './../services/loader.service';
@@ -13,11 +15,13 @@ import { LoaderService } from './../services/loader.service';
 })
 export class OngRepository {
 
-    public baseUrl = 'http://localhost:8000';
-    public ongs = '/api/ongs';
-    public ong = '/api/ong';
-    public cadastro = '/api/cadastro';
-    public login = '/api/login';
+    public baseUrl = 'https://bookofpratice.com/easyong/api';
+    public ongs = '/ongs';
+    public ong = '/ong';
+    public cadastro = '/cadastro';
+    public login = '/login';
+    public forget = '/remember';
+    public indicacao = '/indicacao';
 
     constructor(
       private http: HttpClient,
@@ -67,19 +71,39 @@ export class OngRepository {
         );
     }
 
-    public update(ong: Ong): Observable<UpdateResponse> {
+    public update(ong: Ong,  id: string): Observable<UpdateResponse> {
         this.loader.showLoader();
-        const url = `${this.baseUrl}/${this.ong}/${ong.ong_id}`;
+        const url = `${this.baseUrl}${this.ongs}/${id}`;
         return this.http.put<UpdateResponse>(url, ong)
         .pipe(
             finalize(()=>this.loader.hideLoader())
         );
     }
 
-    public delete(id: number): Observable<Ong> {
+    public delete(id: string): Observable<Ong> {
         this.loader.showLoader();
-        const url = `${this.baseUrl}/${id}`;
+        const url = `${this.baseUrl}${this.ongs}/${id}`;
         return this.http.delete<Ong>(url)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
+    }
+
+    public remember(email: string): Observable<Ong> {
+        this.loader.showLoader();
+        const url = `${this.baseUrl}${this.forget}`;
+        const param = {ong_email: email};
+        return this.http.post<Ong>(url, param)
+        .pipe(
+            finalize(()=>this.loader.hideLoader())
+        );
+    }
+
+    public indicacoes(indicacao: string): Observable<IndicacaoModel> {
+        this.loader.showLoader();
+        const url = `${this.baseUrl}${this.indicacao}`;
+        const body = {indicacao};
+        return this.http.post<IndicacaoModel>(url, body)
         .pipe(
             finalize(()=>this.loader.hideLoader())
         );

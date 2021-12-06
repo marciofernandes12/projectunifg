@@ -17,7 +17,7 @@ CREATE TABLE `ongs` (
   `ong_descricao` varchar(50),
   `ong_email` varchar(50) NOT NULL,
   `ong_senha` varchar(100) NOT NULL,
-  `active` varchar(50) NOT NULL,
+  `active` varchar(2) DEFAULT '1' NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

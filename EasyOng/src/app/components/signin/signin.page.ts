@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { OngRepository } from 'src/app/repositories/ong.service.repository';
+import { ToastService } from 'src/app/services/toast.service';
 
 import { OngService } from './../../services/ong.service';
 
@@ -14,13 +16,13 @@ import { OngService } from './../../services/ong.service';
 })
 export class SigninPage implements OnInit {
   public form: FormGroup;
-  private st: WindowLocalStorage;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly ongService: OngService,
     private readonly ongRepository: OngRepository,
     private readonly route: Router,
+    private readonly toast: ToastService,
   ) { }
 
   public ngOnInit(): void {
@@ -39,15 +41,23 @@ export class SigninPage implements OnInit {
     .pipe(take(1))
     .subscribe(
       (signinResponse)=>{
-        this.ongService.setOng(signinResponse);
-        localStorage.setItem('ong_id',signinResponse.ong_id);
-        this.route.navigate(['/tabs/tab3']);
+        if(signinResponse.ong_id){
+          this.ongService.setOng(signinResponse);
+          localStorage.setItem('ong_id',signinResponse.ong_id);
+          this.goToHome();
+        } else {
+          this.toast.displayToast('ONG não cadastrada em nossos registros.');
+        }
       }
     );
   }
 
   public goToHome(): void {
-    this.route.navigate(['/home']);
+    interval(1000)
+          .pipe(take(1))
+          .subscribe(n => {
+            this.route.navigate(['/home']);
+          });
   }
 
   public goToSignup(): void {

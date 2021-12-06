@@ -37,8 +37,6 @@ export class SignupPage implements OnInit {
 
     public ngOnInit(): void {
         this.createForm();
-        console.log(this.form);
-
         this.geoLocation.getCurrentPosition().then((resp) => {
             this.lat = resp.coords.latitude;
             this.lng = resp.coords.longitude;
@@ -97,7 +95,9 @@ export class SignupPage implements OnInit {
                 this.toast.displayToast('Cadastro efetuado com sucesso.');
                 this.route.navigate(['']);
             },
-            ()=> this.toast.displayToast('falhou')
+            (error)=> {
+                this.toast.displayToast(error.error.message);
+            }
         );
     }
 
@@ -107,6 +107,7 @@ export class SignupPage implements OnInit {
             const type = 'CPF';
             this.form.removeControl('ong_cnpj_cpf');
             this.form.addControl('ong_cnpj_cpf', new FormControl(value, [Validators.required, validateCpf]));
+            console.log(this.form.value);
         }
         if(value.length !== 0 && value.length === 14){
             const type = 'CNPJ';

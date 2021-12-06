@@ -1,11 +1,13 @@
+import { OngService } from './../../services/ong.service';
+import { Ong } from './../../models/ong.model';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { take } from 'rxjs/operators';
-import { Ong } from 'src/app/models/ong.model';
 
 import { OngRepository } from './../../repositories/ong.service.repository';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mapa',
@@ -19,28 +21,12 @@ export class MapaPage implements OnInit {
     public latitude;
     public longitude;
     public map: google.maps.Map;
-    // public locations = [
-    //     { lat: -8.1920063, lng: -34.917070 },
-    //     { lat: -8.1920062, lng: -34.917171 },
-    //     { lat: -8.1920061, lng: -34.917272 },
-    //     { lat: -8.1920060, lng: -34.917373 },
-    //     { lat: -8.1920059, lng: -34.917474 },
-    //     { lat: -8.1920058, lng: -34.917575 },
-    //     { lat: -8.1920057, lng: -34.917676 },
-    //     { lat: -8.1920056, lng: -34.917777 },
-    //     { lat: -8.1920055, lng: -34.917978 },
-    //     { lat: -8.1920054, lng: -34.917879 },
-    //     { lat: -8.1920053, lng: -34.918080 },
-    //     { lat: -8.1920052, lng: -34.918181 },
-    //     { lat: -8.1920051, lng: -34.918282 },
-    //     { lat: -8.1920050, lng: -34.918383 },
-    //     { lat: -8.1920049, lng: -34.918484 },
-    //     { lat: -8.1920048, lng: -34.918585 },
-    //   ];
 
     constructor(
         public ongRepository: OngRepository,
-        private geoLocation: Geolocation
+        public ongService: OngService,
+        private geoLocation: Geolocation,
+        private router: Router,
     ) {}
 
     public ngOnInit(): void {
@@ -62,11 +48,34 @@ export class MapaPage implements OnInit {
                         const map = new google.maps.Map(document.getElementById('map'), {
                             center: location,
                             disableDefaultUI: true,
-                            zoom: 20,
+                            zoom: 15,
                         });
-                        const markers = response.map((l, i) => new google.maps.Marker({
-                            position: {lat: +l.ong_latitude, lng: +l.ong_longitude},
-                        }));
+
+                        const markers = response.map((l, i) => {
+                            const marker = new google.maps.Marker({
+                                position: {lat: +l.ong_latitude, lng: +l.ong_longitude},
+                            });
+                            const infowindow = new google.maps.InfoWindow({
+                                content: `
+                                <div id="box" style="height: 20px;width: 100px; color: #264787; ">
+                                    ${l.ong_name}    
+                                </div>`,
+                            });
+
+                            google.maps.event.addListener(infowindow, 'domready', () => {
+                                const clickableItem = document.getElementById('box');
+                                clickableItem.addEventListener('click', () => {
+                                    console.log(l);
+                                    this.goToOng(l);
+                                });
+                              });
+
+                            marker.addListener('click', () => {
+                                infowindow.open(marker.get('map'), marker);
+                            });
+
+                            return marker;
+                        });
                         new MarkerClusterer({ map, markers });
                     });
                 }
@@ -85,5 +94,10 @@ export class MapaPage implements OnInit {
         .catch((error) => {
             console.log('Error ao buscar localização', error);
         });
+    }
+
+    public goToOng(ong: Ong): void {
+        this.ongService.setOng(ong);
+        this.router.navigate(['/ong']);
     }
 }

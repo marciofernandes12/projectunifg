@@ -2,16 +2,12 @@
 <app-header></app-header>
 
 <ion-content>
-
   <div class="container">
-
     <div class="busca">
       <ion-input (keyup)="search()" [(ngModel)]="busca" placeholder="BUSCAR POR ..."></ion-input>
     </div>
-
     <div class="resultado">
-
-      <ul>
+      <ul *ngIf="resultSearch">
         <li *ngFor="let item of resultSearch">
           <div class="ong" (click)="goToOng(item)">
             <div class="avatar">
@@ -27,32 +23,9 @@
           <hr>
         </li>
       </ul>
-      
+      <div class="empty-state" *ngIf="!resultSearch">
+        <span>Nenhuma ONG encontrada!</span>
+      </div>
     </div>
-
   </div>
-
-
-
-
-
-
-  
-  <!-- <ion-searchbar placeholder="Filter Schedules"></ion-searchbar> -->
-  <!-- <ion-list id="data">
-    <ion-list-header>Instituições</ion-list-header>
-    <ion-item *ngFor="let item of dados" >
-      <ion-thumbnail slot="start">
-        <img src="{{item.img}}">
-      </ion-thumbnail>
-      <ion-label>
-        <h3>{{item.name}}</h3>
-        <p>{{item.type}}</p>
-        <p>{{item.creation}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list> -->
-
-
-
 </ion-content> 

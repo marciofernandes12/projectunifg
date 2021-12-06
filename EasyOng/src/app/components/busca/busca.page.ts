@@ -2,7 +2,6 @@ import { OngService } from './../../services/ong.service';
 import { take } from 'rxjs/operators';
 import { OngRepository } from './../../repositories/ong.service.repository';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ong } from 'src/app/models/ong.model';
 
@@ -23,17 +22,22 @@ export class BuscaPage implements OnInit {
   ) { }
 
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
   public goToOng(ong: Ong): void {
     this.ongService.setOng(ong);
     this.route.navigate(['/ong']);
   }
 
-  public search() {
-    this.ongRepository.readByName(this.busca).pipe(take(1)).subscribe((searchResponse)=>{
-      this.resultSearch = searchResponse;
-    });
+  public search(): void {
+    if(this.busca.length === 0){
+      this.resultSearch = [];
+    }
+    if (this.busca.length > 1) {
+      this.ongRepository.readByName(this.busca).pipe(take(1)).subscribe((searchResponse)=>{
+        this.resultSearch = searchResponse;
+      });
+    }
   }
 
 }

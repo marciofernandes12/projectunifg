@@ -1,18 +1,33 @@
 <ion-content>
-  <div class="container">
+  <main class="container">
 
     <div class="logo">
       <img src="../../../assets/imgs/logo5.png"  width="200"  height="200" />
     </div>
 
-    <div class="fields">      
-        <ion-input placeholder="EMAIL"></ion-input>
-        <ion-input type="password" placeholder="SENHA"></ion-input>
-        <div class="link" (click)="goToForget()">ESQUECEU A SENHA?</div>
-        <button class="outline">ENTRAR</button>
-        <div class="link center" (click)="goToHome()">ENTRAR SEM LOGIN</div>
-        <button class="full" (click)="goToSignup()">CADASTRAR-SE</button>
-    </div>
+    <form class="fields" [formGroup]="form">
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_email.errors && form.controls.ong_email.touched}" placeholder="EMAIL*" formControlName="ong_email"></ion-input>
+        <ng-container *ngIf="form.controls.ong_email.touched">
+          <span *ngIf="form.controls.ong_email.errors?.required">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
 
-  </div>
+      <div class="field">
+        <ion-input [ngClass]="{'field-red': form.controls.ong_senha.errors && form.controls.ong_senha.touched}" type="password" placeholder="SENHA*" formControlName="ong_senha"></ion-input>
+        <ng-container *ngIf="form.controls.ong_senha.touched">
+          <span *ngIf="form.controls.ong_senha.errors?.required">
+              Campo obrigatório
+          </span>
+        </ng-container>
+      </div>
+      <div class="link" (click)="goToForget()">ESQUECEU A SENHA?</div>
+      <button class="outline" (click)="signin()" [disabled]="form.invalid">ENTRAR</button>
+      <div class="link center" (click)="goToHome()">ENTRAR SEM LOGIN</div>
+      <button class="full" (click)="goToSignup()">CADASTRAR-SE</button>
+    </form>
+
+  </main>
 </ion-content>

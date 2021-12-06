@@ -9,7 +9,7 @@
 
       <div class="field">
         <ion-input [ngClass]="{'field-red': form.controls.ong_name.errors && form.controls.ong_name.touched}" 
-        placeholder="NOME*" formControlName="ong_name"></ion-input>
+        placeholder="Nome*" formControlName="ong_name"></ion-input>
         <ng-container *ngIf="form.controls.ong_name.touched">
           <span *ngIf="form.controls.ong_name.errors">
               Campo obrigatório
@@ -20,7 +20,7 @@
       <div class="field">
         <ion-input (keyup)="checkType()" maxlength="18"
         [ngClass]="{'field-red': form.controls.ong_cnpj_cpf.errors && form.controls.ong_cnpj_cpf.touched}" 
-        placeholder="CPF / CPNJ*" formControlName="ong_cnpj_cpf" [brmasker]="{person: true}"></ion-input>
+        placeholder="CPF / CPNJ*" formControlName="ong_cnpj_cpf"></ion-input>
         <ng-container *ngIf="form.controls.ong_cnpj_cpf.touched">
           <span *ngIf="form.controls.ong_cnpj_cpf.errors?.required">
               Campo obrigatório
@@ -35,7 +35,7 @@
       </div>
 
       <div class="field">
-        <ion-input [ngClass]="{'field-red': form.controls.ong_responsavel.errors && form.controls.ong_responsavel.touched}" placeholder="RESPONSAVEL*" formControlName="ong_responsavel"></ion-input>
+        <ion-input [ngClass]="{'field-red': form.controls.ong_responsavel.errors && form.controls.ong_responsavel.touched}" placeholder="Responsavel*" formControlName="ong_responsavel"></ion-input>
         <ng-container *ngIf="form.controls.ong_responsavel.touched">
           <span *ngIf="form.controls.ong_responsavel.errors">
               Campo obrigatório
@@ -47,7 +47,7 @@
       <div id="opa" style="height:335px"></div>
       
       <div class="field">
-        <ion-input [ngClass]="{'field-red': form.controls.ong_email.errors && form.controls.ong_email.touched}" placeholder="EMAIL*" formControlName="ong_email"></ion-input>
+        <ion-input [ngClass]="{'field-red': form.controls.ong_email.errors && form.controls.ong_email.touched}" placeholder="Email*" formControlName="ong_email"></ion-input>
         <ng-container *ngIf="form.controls.ong_email.touched">
           <span *ngIf="form.controls.ong_email.errors?.required">
             Campo obrigatório
@@ -59,7 +59,7 @@
       </div>
       
       <div class="field">
-        <ion-input [ngClass]="{'field-red': form.controls.ong_senha.errors && form.controls.ong_senha.touched}" type="password" placeholder="SENHA*" formControlName="ong_senha"></ion-input>
+        <ion-input [ngClass]="{'field-red': form.controls.ong_senha.errors && form.controls.ong_senha.touched}" type="password" placeholder="Senha*" formControlName="ong_senha"></ion-input>
         <ng-container *ngIf="form.controls.ong_senha.touched">
           <span *ngIf="form.controls.ong_senha.errors">
               Campo obrigatório

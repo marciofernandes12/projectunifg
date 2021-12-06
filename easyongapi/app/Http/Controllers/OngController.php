@@ -26,6 +26,7 @@ class OngController extends Controller
     {
         try {
             $data = $request->json()->all();
+            $data['ong_senha'] = md5($data['ong_senha']);
             $ongs = Ong::where('ong_email', $request->ong_email)->first();
             if (!empty($ongs)) {
                 throw new Exception("Email cadastrado, favor verificar seu email.");
@@ -82,6 +83,7 @@ class OngController extends Controller
             $ong = Ong::where('ong_email', $request->ong_email)
                 ->where('ong_senha', md5($request->ong_senha))
                 ->first();
+                // print_r($ong);
             return response()->json($ong, 200);
         } catch (\Exception $e) {
             return response()->json(["message" => $e->getMessage()], 400);
@@ -102,10 +104,12 @@ class OngController extends Controller
         }
     }
 
-    public function remember($email)
+    public function remember(Request $request)
     {
+        $data = $request->json()->all();
         try {
-            $ong = Ong::where('ong_email', $email)
+
+            $ong = Ong::where('ong_email', $data['ong_email'])
                 ->first();
 
             if (empty($ong)) {
